@@ -1,22 +1,22 @@
-Data Source: Drugbank 5.0
+Data Source: DrugBank 5.0
 
 ## Data Processing Pipeline
 
-Dự án áp dụng chiến lược **Data-Centric (lấy dữ liệu làm trung tâm)** với quy trình tinh lọc khắt khe nhằm duy trì tính phân phối thực tế của dữ liệu y sinh, thay vì sử dụng các kỹ thuật ép cân bằng nhân tạo. Quy trình bao gồm các bước sau:
+The project adopts a **Data-Centric** strategy with a rigorous curation process to preserve the realistic distribution of biomedical data, rather than utilizing artificial balancing techniques. The pipeline consists of the following steps:
 
-* **Bước 1: Sàng lọc tập dữ liệu (Data Curation)**
-  * Dữ liệu thô được trích xuất từ cơ sở dữ liệu DrugBank.
-  * Giữ nguyên tập mẫu âm (negative samples) để duy trì sự mất cân bằng tự nhiên (natural imbalanced distribution), giúp phản ánh chính xác tỷ lệ tương tác DDI trong môi trường dược lý thực tế.
+* **Step 1: Data Curation**
+  * Raw data is extracted from the DrugBank database.
+  * The negative samples are kept intact to maintain the natural imbalanced distribution, which accurately reflects the actual rate of Drug-Drug Interactions (DDI) in real-world pharmacological environments.
 
-* **Bước 2: Trích xuất đặc trưng đa góc nhìn (Multi-View Feature Extraction)**
-  * Xây dựng không gian nguyên bản gồm **12 chiều đặc trưng**, kết hợp giữa:
-    * *Đặc trưng cấu trúc đồ thị (Topological Features)*: Rút trích từ mạng lưới tương tác thuốc.
-    * *Đặc trưng ngữ nghĩa sinh học (Semantic Features)*: Các thuộc tính hóa sinh liên quan.
+* **Step 2: Multi-View Feature Extraction**
+  * The original feature space is constructed with **12 dimensions**, combining:
+    * *Topological Features*: Extracted from the drug interaction network.
+    * *Semantic Features*: Relevant biochemical attributes.
 
-* **Bước 3: Đánh giá và Tinh lọc đặc trưng (Feature Evaluation & Refinement)**
-  * Áp dụng công cụ **SHAP (SHapley Additive exPlanations)** trên mô hình Random Forest để định lượng mức độ đóng góp của từng đặc trưng.
-  * Thực hiện thực nghiệm bóc tách (Ablation study) để nhận diện và loại bỏ các đặc trưng gây nhiễu (như ATC và ADE). 
-  * *Kết quả:* Không gian dữ liệu được tối ưu hóa từ 12 đặc trưng ban đầu xuống còn **10 đặc trưng lõi**.
+* **Step 3: Feature Evaluation & Refinement**
+  * The **SHAP (SHapley Additive exPlanations)** tool is applied to the Random Forest model to quantify the contribution level of each feature.
+  * An ablation study is conducted to identify and eliminate noisy features (such as ATC and ADE). 
+  * *Result:* The data space is optimized from the initial 12 features down to **10 core features**.
 
-* **Bước 4: Phân chia dữ liệu và Đánh giá chéo (Data Splitting & Cross-Validation)**
-  * Dữ liệu được chuẩn hóa và phân chia theo chiến lược **5-Fold Cross-Validation** để đảm bảo tính khách quan và kiểm soát hiện tượng quá khớp (overfitting) trong quá trình huấn luyện các mô hình phân lớp và kiến trúc Stacking Ensemble.
+* **Step 4: Data Splitting & Cross-Validation**
+  * The data is standardized and partitioned using a **5-Fold Cross-Validation** strategy to ensure objectivity and control overfitting during the training of the classification models and the Stacking Ensemble architecture.
