@@ -1,3 +1,23 @@
+**Các bước sử dụng github cơ bản:**
+1. Tạo repo trên github
+2. Kết nối Folder trên máy với github
+ git init
+ git remote add origin <link của repo>
+3. Đẩy file lên github
+   git add . (Chọn tất cả các file)
+   git add ten_file (Chọn file cụ thể)
+
+   git commit -m "message" ()
+
+   git push origin main
+   Hoặc lần đầu: git push -u origin main (Thiết lập mặc định)
+4. Đồng bộ repo với máy
+   git pull origin main
+5. Một số thao tác cơ bản khác:
+   - git status :xem trạng thái
+   - clear : xóa
+   - git log : lịch sử các lần commit
+   - git clone <link> : tải dự án
 Data Source: DrugBank 5.0
 
 ## Data Processing Pipeline
